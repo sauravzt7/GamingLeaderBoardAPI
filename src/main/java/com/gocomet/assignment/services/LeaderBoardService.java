@@ -20,9 +20,7 @@ public class LeaderBoardService {
     public void updateLeaderBoard(User user, int score) {
         LeaderBoard leaderBoard = leaderboardRepository.findByUserId(user.getId());
 
-        if(leaderBoard != null){
-            leaderBoard.setTotalScore(leaderBoard.getTotalScore() + score);
-        }
+        if(leaderBoard != null) leaderBoard.setTotalScore(leaderBoard.getTotalScore() + score);
         else {
             leaderBoard = LeaderBoard.builder()
                     .user(user)
@@ -39,6 +37,4 @@ public class LeaderBoardService {
                 .map(l -> new LeaderBoardDTO(l.getUser().getUserName(), l.getTotalScore(), l.getRank()))
                 .collect(Collectors.toList());
     }
-
-
 }

@@ -1,6 +1,7 @@
 package com.gocomet.assignment.services;
 
 
+import com.gocomet.assignment.factory.RankingStrategyFactory;
 import com.gocomet.assignment.models.LeaderBoard;
 import com.gocomet.assignment.repository.LeaderBoardRepository;
 import lombok.RequiredArgsConstructor;
@@ -13,15 +14,13 @@ import java.util.List;
 @RequiredArgsConstructor
 public class RankService {
 
+
     private final LeaderBoardRepository leaderboardRepository;
+
     @Transactional
     public void updateRanks() {
-        List<LeaderBoard> leaderboardList = leaderboardRepository.findAllOrderedByScore();
-        int rank = 1;
-        for (LeaderBoard l : leaderboardList) {
-            l.setRank(rank++);
-            leaderboardRepository.save(l);
-        }
+        //set the ranking strategy at run time
+        RankingStrategyFactory.getNormalRankingStrategy().rank(leaderboardRepository);
     }
 
     public int getUserRank(Long userId) {
