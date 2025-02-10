@@ -24,8 +24,7 @@ public class ScoreManagerService {
 
     @Transactional
     public void submitScore(SubmitScoreDTO dto) {
-        User user = userRepository.findById(dto.getUserId())
-                .orElseThrow(() -> new RuntimeException("User not found"));
+        User user = userRepository.findById(dto.getUserId()).orElseThrow(() -> new RuntimeException("User not found"));
 
         GameSession session = GameSession.builder()
                 .user(user)
@@ -33,11 +32,12 @@ public class ScoreManagerService {
                 .gameMode(dto.getGameMode())
                 .timestamp(LocalDateTime.now())
                 .build();
-        gameSessionRepository.save(session);
-        int totalScore = gameSessionRepository.calculateTotalScore(user.getId());
 
-        leaderBoardService.updateLeaderBoard(dto);
+        gameSessionRepository.save(session);
+//        int totalScore = gameSessionRepository.calculateTotalScore(user.getId());
+        leaderBoardService.updateLeaderBoard(user, dto.getScore());
         rankService.updateRanks();
+        /* TODO: we can think of implement a chain of responsibility pattern here  */
     }
 
 }

@@ -14,10 +14,6 @@ import java.util.List;
 public class RankService {
 
     private final LeaderBoardRepository leaderboardRepository;
-
-    /**
-     * Updates ranks for all users based on total score (higher score = better rank).
-     */
     @Transactional
     public void updateRanks() {
         List<LeaderBoard> leaderboardList = leaderboardRepository.findAllOrderedByScore();
@@ -28,9 +24,6 @@ public class RankService {
         }
     }
 
-    /**
-     * Returns the rank of a user based on their total score.
-     */
     public int getUserRank(Long userId) {
         return leaderboardRepository.findById(userId)
                 .map(leaderboard -> leaderboardRepository.findRankByScore(leaderboard.getTotalScore()))

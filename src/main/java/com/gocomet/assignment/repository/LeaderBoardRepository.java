@@ -15,4 +15,6 @@ public interface LeaderBoardRepository extends JpaRepository<LeaderBoard, Long> 
 
     @Query("SELECT COUNT(l) + 1 FROM LeaderBoard l WHERE l.totalScore > :score")
     int findRankByScore(@Param("score") int score);
+
+    LeaderBoard findByUserId(Long id);
 }

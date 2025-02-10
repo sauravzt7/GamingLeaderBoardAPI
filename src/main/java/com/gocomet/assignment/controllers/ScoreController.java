@@ -14,11 +14,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class ScoreController {
 
-    private final ScoreManagerService ScoreManagerService;
+    private final ScoreManagerService scoreManagerService;
 
     @PostMapping("/submit")
     public void submitScore(@RequestBody SubmitScoreDTO submitScoreDTO) {
-        ScoreManagerService.submitScore(submitScoreDTO);
+        scoreManagerService.submitScore(submitScoreDTO);
     }
 
 }
