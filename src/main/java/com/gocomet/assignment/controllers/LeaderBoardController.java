@@ -2,7 +2,6 @@ package com.gocomet.assignment.controllers;
 
 
 import com.gocomet.assignment.dto.LeaderBoardDTO;
-import com.gocomet.assignment.dto.SubmitScoreDTO;
 import com.gocomet.assignment.services.LeaderBoardService;
 import com.gocomet.assignment.services.RankService;
 import lombok.RequiredArgsConstructor;
