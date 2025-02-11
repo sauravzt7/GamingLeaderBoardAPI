@@ -7,6 +7,7 @@ import com.gocomet.assignment.repository.GameSessionRepository;
 import com.gocomet.assignment.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -23,6 +24,7 @@ public class ScoreManagerService {
 
 
     @Transactional
+    @CacheEvict(value = "userRanks", allEntries = true)  // Clears all cached ranks after rank update
     public void submitScore(SubmitScoreDTO dto) {
         User user = userRepository.findById(dto.getUserId()).orElseThrow(() -> new RuntimeException("User not found"));
 
@@ -34,10 +36,8 @@ public class ScoreManagerService {
                 .build();
 
         gameSessionRepository.save(session);
-//        int totalScore = gameSessionRepository.calculateTotalScore(user.getId());
-        leaderBoardService.updateLeaderBoard(user, dto.getScore());
-        rankService.updateRanks();
-        /* TODO: we can think of implement a chain of responsibility pattern here  */
+        leaderBoardService.updateLeaderBoard();
     }
+
 
 }

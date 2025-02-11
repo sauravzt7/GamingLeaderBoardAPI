@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/leaderboard")
 /* Todo: the endpoints for score should be different from what LeaderBoardController has */
-
 @RequiredArgsConstructor
 public class ScoreController {
 

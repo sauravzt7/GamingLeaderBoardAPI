@@ -19,9 +19,10 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name= "username", unique = true, nullable = false)
+    @Column(name = "username", unique = true, nullable = false)
     private String userName;
 
-    @Column(name= "join_date", nullable = false)
-    private LocalDateTime joinDate;
+    @Column(name = "join_date", nullable = false)
+    private LocalDateTime joinDate = LocalDateTime.now();
+
 }

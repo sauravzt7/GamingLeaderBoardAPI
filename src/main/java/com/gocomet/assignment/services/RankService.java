@@ -4,6 +4,7 @@ package com.gocomet.assignment.services;
 import com.gocomet.assignment.factory.RankingStrategyFactory;
 import com.gocomet.assignment.models.LeaderBoard;
 import com.gocomet.assignment.repository.LeaderBoardRepository;
+import org.springframework.cache.annotation.Cacheable;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,9 +24,10 @@ public class RankService {
         RankingStrategyFactory.getNormalRankingStrategy().rank(leaderboardRepository);
     }
 
+
     public int getUserRank(Long userId) {
-        return leaderboardRepository.findById(userId)
-                .map(leaderboard -> leaderboardRepository.findRankByScore(leaderboard.getTotalScore()))
-                .orElse(-1);
+        System.out.println("Fetching rank for user from database");
+        return leaderboardRepository.findRankByUserId(userId);
     }
+
 }
